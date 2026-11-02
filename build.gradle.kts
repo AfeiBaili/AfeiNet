@@ -2,8 +2,9 @@ plugins {
     kotlin("jvm") version "2.2.20"
 }
 
-group = "cn.afeibaili"
-version = "1.0-SNAPSHOT"
+val buildName = "common"
+group = "cn.afeibaili.afeinet"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -21,4 +22,8 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(17)
+}
+
+tasks.jar {
+    archiveFileName.set("${buildName}-${project.version}.jar")
 }

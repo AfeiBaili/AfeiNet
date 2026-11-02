@@ -20,13 +20,11 @@ object ConfigLoader {
     private val jsonMapper: JsonMapper = JsonMapper.builder().addModule(kotlinModule()).build()
     private val logger = Logger.getLogger("ConfigLoader")
 
-    init {
-        val example = InstanceConfig("example name", "this is remark", 33393, "afeibaili.cn", 33393)
+    fun exampleConfig() {
+        val example = InstanceConfig("example name", "this is remark", 8080, "localhost", 8080)
         val file = File(currentPath, "/config/example.json")
-        if (file.parentFile.listFiles()?.isEmpty() == true) {
-            file.parentFile.mkdirs()
-            jsonMapper.writerWithDefaultPrettyPrinter().writeValue(file, example)
-        }
+        file.parentFile.mkdirs()
+        file.writeText(jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(example))
     }
 
     fun loadInstance(insPath: String): InstanceConfig {
@@ -38,9 +36,12 @@ object ConfigLoader {
 
     fun loadByDirectory(insDir: String): MutableList<InstanceConfig> {
         val dir = File(insDir)
+        if (!dir.exists()) dir.mkdirs()
         val list = mutableListOf<InstanceConfig>()
-        if (dir.isDirectory)
+        if (dir.isDirectory) {
+            if (dir.listFiles()!!.isEmpty()) exampleConfig()
             dir.listFiles()?.forEach { list += loadInstance(it.canonicalPath) }
+        }
         return list
     }
 

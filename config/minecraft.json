@@ -1,7 +1,0 @@
-{
-  "instanceName": "Minecraft",
-  "remark": "用于我的世界",
-  "listenerPort": 25565,
-  "transferHost": "localhost",
-  "transferPort": 25588
-}

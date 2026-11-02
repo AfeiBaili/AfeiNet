@@ -1,0 +1,7 @@
+{
+  "instanceName" : "example name",
+  "remark" : "this is remark",
+  "listenerPort" : 8080,
+  "transferHost" : "localhost",
+  "transferPort" : 8080
+}
