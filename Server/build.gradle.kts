@@ -39,3 +39,10 @@ tasks.jar {
     destinationDirectory = layout.buildDirectory.dir("run")
     finalizedBy(copyDependencies, startBat)
 }
+
+val zip = tasks.register<Zip>("zip") {
+    dependsOn(tasks.jar, copyDependencies, startBat)
+    archiveFileName.set("${buildName}-${project.version}.zip")
+    destinationDirectory = rootProject.layout.buildDirectory
+    from(layout.buildDirectory.dir("run"))
+}
